@@ -8,7 +8,7 @@
 const utils = require("./lib/main.js")
 ;(() => {
   try {
-    new utils.ParseCategory().selectMaxPage()
+    new utils.ParseCategory().selectMaxPage(process.argv[2])
   } catch (error) {
     console.log(error)
     return false
