@@ -1,0 +1,22 @@
+
+node_modules
+.idea
+
+.DS_Store
+node_modules/
+*/node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+./lib/categoryConfig.json
+backup
+json
+result
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.report*
