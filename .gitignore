@@ -11,6 +11,7 @@ yarn-error.log*
 backup
 dist
 ./json/categoryConfig.json
+json/categoryConfig.json
 result
 # Editor directories and files
 .idea
