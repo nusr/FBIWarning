@@ -13,8 +13,7 @@
     "url": "https://github.com/nusr/FBIWarning.git"
   },
   "scripts": {
-    "dev": "node ./index.js",
-    "test": "node ./test/index.js"
+    "dev": "node ./index.js"
   },
   "keywords": [
     "种子神器",

@@ -5,7 +5,6 @@
 ## 运行
 
 - `npm install` or `cnpm install` or `yarn` // 安装依赖包
-- `npm run test` // 测试代理是否可用
 - `npm run dev` // 运行
 
 ## 依赖包
@@ -22,9 +21,9 @@
 
 目前只支持 socks 代理，http(s) 代理方式不支持！
 
-我使用的是 [lantern](https://github.com/getlantern/lantern)。更多翻墙方式，[科学上网传送门](https://github.com/search?o=desc&q=%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91&s=stars&type=Repositories)
+我使用的是 [lantern](https://github.com/getlantern/lantern)。更多翻墙方式，[ssr](https://github.com/shadowsocksr-backup/shadowsocks-rss) 或者 [科学上网传送门](https://github.com/search?o=desc&q=%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91&s=stars&type=Repositories)
 
-在命令行运行 `npm run test`，测试配置的代理是否可用！
+项目会自动测试代理是否可用的。
 
 ![lantern](./images/lantern.png)
 
@@ -41,7 +40,7 @@ module.exports = {
 
 ## 教程
 
-1. [Node.js 多版本安装](https://www.cnblogs.com/stevexu/p/9734249.html)
+1. [Node.js 安装](https://www.cnblogs.com/stevexu/p/9734249.html)
 2. [Node.js 种子下载器](https://www.cnblogs.com/stevexu/p/9755337.html)
 
 ## 功能
@@ -66,7 +65,7 @@ module.exports = {
 
 ## Node.js
 
-- Node.js v8.12.0
+- Node.js v8.12.0，尽量安装最新稳定版本，否则可能运行报错。
 - 支持 Windows, Linux, Mac
 
 ## LICENSE
