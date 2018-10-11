@@ -8,10 +8,9 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-backup
+back
 dist
-./json/categoryConfig.json
-json/categoryConfig.json
+json
 result
 # Editor directories and files
 .idea
