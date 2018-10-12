@@ -1,6 +1,6 @@
 # FBI Warning
 
-受到 [hardseed](https://github.com/yangyangwithgnu/hardseed)(C++) 的启发，开发的 Node.js 种子神器。
+受到 [hardseed](https://github.com/yangyangwithgnu/hardseed)(C++) 的启发，开发的 Node.js 种子神器，送你硬盘女神。
 
 ## 运行
 
@@ -42,15 +42,9 @@ module.exports = {
 1. [Node.js 安装](https://www.cnblogs.com/stevexu/p/9734249.html)
 2. [Node.js 种子下载器](https://www.cnblogs.com/stevexu/p/9755337.html)
 
-## 爬取策略
-
-1. 爬取所有列表页面的链接后，再去爬取所有详情页面，下载种子文件。
-1. 爬取一部分列表页面，就去爬取详情页面，下载种子文件。然后再去爬取列表页面，爬取详情页面，循环进行。
-1. 因为是国外网站，网络可能随时断开，所以采用第二种策略比较好。同时，能很快得到种子文件。
-
 ## changelog
 
-1. **[2018-10-12,v0.3.0]** 该爬取策略，加快种子下载速度
+1. **[2018-10-12,v0.3.0]** 改变爬取策略，加快种子下载速度
 2. **[2018-10-04,v0.2.0]** 使用 ES6 Class 改写整个代码
 3. **[2018-10-01,v0.1.0]** 完成分类链接获取、列表页链接获取以及下载种子的功能
   
