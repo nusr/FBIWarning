@@ -8,7 +8,8 @@
 const utils = require("./lib/main.js")
 ;(() => {
   try {
-    new utils.ParseCategory().recursionExecutive(process.argv[2])
+    // process.argv[2]
+    new utils.ParseCategory().recursionExecutive()
   } catch (error) {
     console.log(error)
     return false

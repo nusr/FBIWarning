@@ -7,13 +7,6 @@
 - `npm install` or `cnpm install` or `yarn` // 安装依赖包
 - `npm run dev` // 运行
 
-## 依赖包
-
-- `cheerio` // 解析 DOM
-- `iconv-lite` // 解决中文乱码的问题
-- `request` // http 请求
-- `socks5-http-client` // socks 代理
-
 ## 科学上网
 
 翻墙才可以爬取，否则爬取失败！
