@@ -34,7 +34,7 @@ const Agent = require("socks5-http-client/lib/Agent")
 // 提高下载并发量
 const async = require("async")
 const log = (info, tag) => {
-  // console.log(info)
+  console.log(info)
 }
 const SOCKS_CONFIG = require("./socks.json")
 // log(SOCKS_CONFIG)
@@ -199,11 +199,10 @@ class BaseSpider {
   }
   /**
    * 去掉文件路径中的空白
-   * @param {String} path
+   * @param {String} filePath
    */
-  filterIllegalPath(path) {
-    let result = path.replace(/(^\s+)|(\s+$)/g, "")
-    result = result.replace(/\s/g, "")
+  filterIllegalPath(filePath) {
+    let result = filePath.replace(/[^\da-z\u4e00-\u9fa5]/gi,"")
     return result
   }
   /**
@@ -573,7 +572,7 @@ class ParseTableList extends BaseSpider {
       images
     })
     this.updateTableList()
-    let directory = this.getParentDirectory() + "/" + filterIllegalPath(title)
+    let directory = this.getParentDirectory() + "/" + this.filterIllegalPath(title)
     this.downloadResult(directory, torrents, images)
   }
   /**
