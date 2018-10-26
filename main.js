@@ -202,7 +202,7 @@ class BaseSpider {
    * @param {String} filePath
    */
   filterIllegalPath(filePath) {
-    let result = filePath.replace(/[^\da-z\u4e00-\u9fa5]/gi,"")
+    let result = filePath.replace(/[^\da-z\u4e00-\u9fa5]/gi, "")
     return result
   }
   /**
@@ -333,7 +333,7 @@ class ParseTableList extends BaseSpider {
     } else {
       let childCategory = categoryList[currentCategory].childCategory
       let item = childCategory.find(item => item.link === parseListUrl)
-      return Math.max(item.endPage, COMMON_CONFIG.connectTasks)
+      return Math.min(item.endPage, COMMON_CONFIG.connectTasks)
     }
   }
   /**
@@ -363,7 +363,7 @@ class ParseTableList extends BaseSpider {
     let endPage = ~~this.getEndPage()
 
     let currentPage = this.currentPage
-    if (this.currentPage >= endPage) {
+    if (this.currentPage > endPage) {
       this.endInnerRecursion()
       return false
     }
@@ -377,6 +377,7 @@ class ParseTableList extends BaseSpider {
       }
       requestUrls.push(requestUrl)
     }
+    let isRepeat = false
     try {
       // 并发请求
       async.mapLimit(
@@ -399,7 +400,7 @@ class ParseTableList extends BaseSpider {
             }
           }
           detailLinks = this.filterRepeat(detailLinks)
-          let isRepeat =
+          isRepeat =
             repeatCount >
             (COMMON_CONFIG.connectTasks * COMMON_CONFIG.pageSize) / 2
           this.getDetailPage(detailLinks, isRepeat)
@@ -407,8 +408,7 @@ class ParseTableList extends BaseSpider {
       )
     } catch (error) {
       log(error)
-      this.currentPage += COMMON_CONFIG.connectTasks
-      this.innerRecursion()
+      this.endDetailRecursion(isRepeat)
     }
   }
   /**
@@ -437,20 +437,25 @@ class ParseTableList extends BaseSpider {
           this.parseDetailHtml($, link)
         }
       }
-      if (isRepeat) {
-        this.currentPage += COMMON_CONFIG.connectTasks
-      } else {
-        // 根据已经爬取的数据 更新爬取的页数
-        this.currentPage = this.getTotalCount()
-      }
-      this.endTimeCount()
-      this.innerRecursion()
+      this.endDetailRecursion(isRepeat)
     } catch (error) {
       log(error)
-      this.currentPage += COMMON_CONFIG.connectTasks
-      this.endTimeCount()
-      this.innerRecursion()
+      this.endDetailRecursion(isRepeat)
     }
+  }
+  /**
+   * 结束详情页递归
+   * @param {Boolean} isRepeat 是否重复
+   */
+  endDetailRecursion(isRepeat) {
+    if (isRepeat) {
+      this.currentPage += COMMON_CONFIG.connectTasks
+    } else {
+      // 根据已经爬取的数据 更新爬取的页数
+      this.currentPage = this.getTotalCount()
+    }
+    this.endTimeCount()
+    this.innerRecursion()
   }
   /**
    * 获取已经爬取的页数
@@ -460,6 +465,7 @@ class ParseTableList extends BaseSpider {
     let lists = Object.keys(categoryList)
     let totalLen = 0
     let tableList = this.tableList
+
     if (!lists.includes(parseListUrl)) {
       for (let key in tableList) {
         if (tableList[key].category === parseListUrl) {
@@ -470,7 +476,8 @@ class ParseTableList extends BaseSpider {
     } else {
       totalLen = Object.keys(tableList).length
     }
-    return ~~(totalLen / COMMON_CONFIG.pageSize)
+    let page = Math.ceil(totalLen / COMMON_CONFIG.pageSize)
+    return page + 1
   }
   /**
    * 获取当前的分类
@@ -572,7 +579,8 @@ class ParseTableList extends BaseSpider {
       images
     })
     this.updateTableList()
-    let directory = this.getParentDirectory() + "/" + this.filterIllegalPath(title)
+    let directory =
+      this.getParentDirectory() + "/" + this.filterIllegalPath(title)
     this.downloadResult(directory, torrents, images)
   }
   /**
@@ -692,10 +700,14 @@ class ParseCategory extends BaseSpider {
         endPage.push(number[index])
       }
       endPage = endPage.join("")
-      // log(endPage);
-      return ~~endPage
+      log(trsLen);
+      if (trsLen > 5) {
+        return ~~endPage
+      } else {
+        return 0
+      }
     } catch (error) {
-      return trsLen > 0
+      return trsLen > 5
     }
   }
   /**
@@ -781,32 +793,26 @@ class ParseCategory extends BaseSpider {
       log(answer)
       let index = value - 1
       instance.close()
-      try {
-        if (value <= childCategory.length && value >= 1) {
-          let link = childCategory[index].link
-          let $ = await this.requestPage(COMMON_CONFIG.baseUrl + link)
-          let endPage = ~~this.getEndPage($)
-          if (endPage < 1) {
-            throw new Error("failure!")
-          }
-          childCategory[index].endPage = endPage
-          this.updateCategoryList()
-          console.log(endPage)
-          // log("解析" + childCategory[index].title)
-          new ParseTableList(parentIndex, false, link).recursionExecutive()
-          return false
-        } else {
-          new ParseTableList(
-            parentIndex,
-            false,
-            parentCategory.link
-          ).recursionExecutive()
+      if (value <= childCategory.length && value >= 1) {
+        let link = childCategory[index].link
+        let $ = await this.requestPage(COMMON_CONFIG.baseUrl + link)
+        let endPage = ~~this.getEndPage($)
+        if (endPage < 1) {
+          console.log("该子分类无数据，请选择其他子分类\n")
+          this.selectChildCategory(parentIndex, parentCategory)
+          return
         }
-        // log("解析" + parentCategory.title)F
-      } catch (error) {
-        console.log(error)
-        console.log("该子分类无数据，请选择其他子分类\n")
-        this.selectChildCategory(parentIndex, parentCategory)
+        childCategory[index].endPage = endPage
+        this.updateCategoryList()
+        console.log(endPage)
+        // log("解析" + childCategory[index].title)
+        new ParseTableList(parentIndex, false, link).recursionExecutive()
+      } else {
+        new ParseTableList(
+          parentIndex,
+          false,
+          parentCategory.link
+        ).recursionExecutive()
       }
     })
   }
