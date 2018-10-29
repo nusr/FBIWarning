@@ -11,11 +11,23 @@
 
 **翻墙才可以爬取，否则爬取失败！**
 
-目前只支持 **socks** 代理，**http(s)** 代理方式不支持！
+目前只支持 **socks** 代理，**http(s)** 代理方式不支持,所以不支持 **socks** 代理的代理软件不能使用。
 
-我使用的是 [lantern](https://github.com/getlantern/lantern)。更多翻墙方式，[科学上网](https://github.com/search?o=desc&q=%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91&s=stars&type=Repositories)。
+即使有些代理软件提供了 **socks** 代理功能，可能仍然不能使用，例如 firefly-proxy。测试了其他代理软件的，欢迎提 issue。
+
+更多翻墙方式，[科学上网](https://github.com/search?o=desc&q=%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91&s=stars&type=Repositories)。
 
 项目会自动测试代理是否可用的！
+控制台输出 **代理测试通过!!!** 表示代理可用，否则代理不可用。
+
+支持的代理软件
+
+- [lantern](https://github.com/getlantern/lantern)
+
+不支持的代理软件
+
+- [firefly-proxy](https://github.com/yinghuocho/firefly-proxy)
+- shadowsocks
 
 `./socks.json` 文件中配置代理，代理配置如下：
 
