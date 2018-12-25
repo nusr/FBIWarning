@@ -1,10 +1,10 @@
 # FBI Warning
 
-受到 [hardseed](https://github.com/yangyangwithgnu/hardseed)(C++) 的启发，开发的 **Node.js** 种子神器，送你硬盘女神。
+受到 [hardseed](https://github.com/yangyangwithgnu/hardseed)(C++) 的启发，开发的 **Node.js** 种子神器。
 
 ## 运行
 
-- `npm install` or `cnpm install` or `yarn` // 安装依赖包
+- `cnpm install` or `npm install` or `yarn` // 安装依赖包
 - `npm run dev` // 运行
 
 ## 科学上网
@@ -54,9 +54,7 @@
 
 ## 下载
 
-![child](./images/child.png)
-
-本应用最终只能得到种子文件(Torrent 文件)。请使用迅雷解析种子文件，下载视频，下载视频无需翻墙！！！
+本应用最终只能得到种子文件(Torrent 文件),种子文件在 `result` 文件夹。请使用迅雷解析种子文件，下载视频无需翻墙
 
 ## Node.js
 

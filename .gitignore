@@ -12,6 +12,7 @@ back
 dist
 json
 result
+*.zip
 # Editor directories and files
 .idea
 .vscode
