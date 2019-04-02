@@ -9,7 +9,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 back
-dist
+*.lock
 json
 result
 *.zip

@@ -5,7 +5,7 @@
 ## 运行
 
 - `cnpm install` or `npm install` or `yarn` 
-- `npm run dev`
+- `npm start`
 
 ## 科学上网
 
@@ -16,11 +16,7 @@
 支持的代理软件
 
 - [lantern](https://github.com/getlantern/lantern)
-
-不支持的代理软件
-
-- [firefly-proxy](https://github.com/yinghuocho/firefly-proxy)
-- shadowsocks
+- ShadowsocksX-NG
 
 `./socks.json` 文件中配置代理，代理配置如下：
 
@@ -33,10 +29,6 @@
 
 ![lantern](./images/lantern.png)
 
-## 教程
-
-1. [Node.js 安装](https://www.cnblogs.com/stevexu/p/9734249.html)
-2. [Node.js 种子下载器](https://www.cnblogs.com/stevexu/p/9755337.html)
 
 
 

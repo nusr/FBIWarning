@@ -5,23 +5,33 @@
  * @license MIT
  * @preserve
  */
-const async = require("async");
-const path = require("path");
-const COMMON_CONFIG = require("./config.js");
-const { log, BaseSpider } = require("./base");
+
+import async from "async";
+import path from "path";
+import COMMON_CONFIG from "./config";
+import { log, BaseSpider } from "./base";
 /**
  * 解析列表页,获取种子链接，下载种子文件
  */
-class ParseTableList extends BaseSpider {
-  constructor(categoryIndex, parseAllCategory, parseListUrl, categoryList) {
+export default class ParseTableList extends BaseSpider {
+  currentPage: number = 1; //当前页数
+  jsonPath: string = ""; // 列表页结果路径
+  tableList: object = {}; // 当前分类下的列表页
+  parseAllCategory: boolean;
+  categoryIndex: number;
+  parseListUrl: string;
+  categoryList: any;
+  constructor(
+    categoryIndex: number = 0,
+    parseAllCategory: boolean = false,
+    parseListUrl: string = "",
+    categoryList: any = {}
+  ) {
     super();
-    this.tableList = {}; // 当前分类下的列表页
-    this.parseAllCategory = parseAllCategory || false; // 是否解析所有分类
-    this.parseListUrl = parseListUrl || ""; //  当前解析的 url
-    this.categoryIndex = categoryIndex || 0; // 当前爬取的分类
-    this.jsonPath = ""; // 列表页结果路径
-    this.currentPage = 1; //当前页数
-    this.categoryList = categoryList || {};
+    this.parseAllCategory = parseAllCategory; // 是否解析所有分类
+    this.parseListUrl = parseListUrl; //  当前解析的 url
+    this.categoryIndex = categoryIndex; // 当前爬取的分类
+    this.categoryList = categoryList;
     if (this.isEmpty(categoryList)) {
       console.log("分类列表为空,请重新启动!");
       return;
@@ -38,7 +48,7 @@ class ParseTableList extends BaseSpider {
       this.endTimeCount();
       return false;
     }
-    let currentCategory = this.getCurrentCategory();
+    let currentCategory: string = this.getCurrentCategory();
     this.parseListUrl = this.parseListUrl || currentCategory;
     this.jsonPath =
       COMMON_CONFIG.tableList +
@@ -55,17 +65,17 @@ class ParseTableList extends BaseSpider {
    */
   innerRecursion() {
     console.log("爬取列表中...");
-    let connectTasks = COMMON_CONFIG.connectTasks;
-    let endPage = ~~this.getEndPage();
+    let connectTasks: number = COMMON_CONFIG.connectTasks;
+    let endPage: number = ~~this.getEndPage();
 
-    let currentPage = this.currentPage;
+    let currentPage: number = this.currentPage;
     if (this.currentPage > endPage) {
       this.endInnerRecursion();
       return false;
     }
     console.log(currentPage);
-    let pageLimit = Math.min(endPage, currentPage + connectTasks);
-    let requestUrls = [];
+    let pageLimit: number = Math.min(endPage, currentPage + connectTasks);
+    let requestUrls: string[] = [];
     for (let i = currentPage; i <= pageLimit; i++) {
       let requestUrl = COMMON_CONFIG.baseUrl + this.parseListUrl;
       if (i > 1) {
@@ -82,10 +92,10 @@ class ParseTableList extends BaseSpider {
       },
       (err, results) => {
         if (err) {
-          log(err);
+          log(err.toString());
         }
-        let detailLinks = [];
-        let repeatCount = 0;
+        let detailLinks: string[] = [];
+        let repeatCount: number = 0;
         for (let result of results) {
           if (result) {
             let { links, repeat } = this.parseHtml(result);
@@ -106,7 +116,7 @@ class ParseTableList extends BaseSpider {
    * async 配合 await 会将同步变成异步过程
    * @param {Array} detailLinks 详情页面链接
    */
-  async getDetailPage(detailLinks, isRepeat) {
+  async getDetailPage(detailLinks: string[], isRepeat: boolean) {
     console.log("爬取种子中...");
     let tableList = this.tableList;
     for (let link of detailLinks) {
@@ -220,10 +230,10 @@ class ParseTableList extends BaseSpider {
    */
   parseHtml($) {
     let trDoms = $("#ajaxtable tr");
-    let detailLinks = [];
-    let repeatCount = 0;
+    let detailLinks: string[] = [];
+    let repeatCount: number = 0;
     let tableList = this.tableList;
-    let category = this.parseListUrl;
+    let category: string = this.parseListUrl;
     let isParentCategory = this.isParentCategory();
     let currentCategory = this.getCurrentCategory();
     trDoms.each(function() {
@@ -256,11 +266,11 @@ class ParseTableList extends BaseSpider {
    * @param {Object} $ cheerio 对象
    * @param {String} seed  详情页链接
    */
-  async parseDetailHtml($, seed) {
+  async parseDetailHtml($, seed: string) {
     if (!$) {
       return;
     }
-    let torrents = [];
+    let torrents: string[] = [];
     /**
      * 获取页面上的每一个链接
      * 不放过任何一个种子，是不是很贴心！！
@@ -273,7 +283,7 @@ class ParseTableList extends BaseSpider {
     });
     // 去重
     torrents = this.filterRepeat(torrents);
-    let images = [];
+    let images: string[] = [];
     $("#td_tpc img").each(function() {
       let src = $(this).attr("src");
       let extName = path.extname(src);

@@ -2,7 +2,7 @@
   "name": "FBIWarning",
   "version": "0.1.0",
   "description": "Node.js 种子神器",
-  "main": "index.js",
+  "main": "./dist/src/index.js",
   "homepage": "https://github.com/nusr/FBIWarning",
   "author": {
     "name": "Steve Xu",
@@ -13,7 +13,12 @@
     "url": "https://github.com/nusr/FBIWarning.git"
   },
   "scripts": {
-    "dev": "node ./index.js"
+    "start": "node ./dist/src/index.js",
+    "build": "npm run build-ts && npm run tslint",
+    "serve": "nodemon --inspect ./dist/src/index.js",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "lint": "tslint -c tslint.json -p tsconfig.json"
   },
   "keywords": [
     "downloader",
@@ -22,11 +27,20 @@
     "Spider"
   ],
   "dependencies": {
+    "@types/cheerio": "^0.22.11",
     "async": "^2.6.1",
     "cheerio": "^1.0.0-rc.2",
     "iconv-lite": "^0.4.24",
     "request": "^2.88.0",
     "socks5-http-client": "^1.0.4"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/async": "^2.4.1",
+    "@types/node": "^11.13.0",
+    "@types/request": "^2.48.1",
+    "nodemon": "^1.18.10",
+    "tslint": "^5.15.0",
+    "typescript": "^3.4.1"
+  }
 }
