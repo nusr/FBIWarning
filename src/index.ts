@@ -15,3 +15,4 @@
 import ParseCategory from "./category";
 
 new ParseCategory();
+

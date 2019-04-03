@@ -13,9 +13,8 @@
     "url": "https://github.com/nusr/FBIWarning.git"
   },
   "scripts": {
-    "start": "node ./dist/src/index.js",
-    "build": "npm run build-ts && npm run tslint",
-    "serve": "nodemon --inspect ./dist/src/index.js",
+    "start": "node ./dist/index.js",
+    "build": "npm run build-ts && npm run lint",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json"
@@ -27,7 +26,6 @@
     "Spider"
   ],
   "dependencies": {
-    "@types/cheerio": "^0.22.11",
     "async": "^2.6.1",
     "cheerio": "^1.0.0-rc.2",
     "iconv-lite": "^0.4.24",
@@ -37,9 +35,9 @@
   "license": "MIT",
   "devDependencies": {
     "@types/async": "^2.4.1",
+    "@types/cheerio": "^0.22.11",
     "@types/node": "^11.13.0",
     "@types/request": "^2.48.1",
-    "nodemon": "^1.18.10",
     "tslint": "^5.15.0",
     "typescript": "^3.4.1"
   }

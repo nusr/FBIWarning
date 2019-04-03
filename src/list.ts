@@ -9,14 +9,19 @@
 import async from "async";
 import path from "path";
 import COMMON_CONFIG from "./config";
-import { log, BaseSpider } from "./base";
+import { log, BaseSpider,CategoryItem } from "./base";
+interface TableItem {
+  category: string; // 分类
+  images: string[];
+  torrents: string[];
+}
 /**
  * 解析列表页,获取种子链接，下载种子文件
  */
 export default class ParseTableList extends BaseSpider {
   currentPage: number = 1; //当前页数
   jsonPath: string = ""; // 列表页结果路径
-  tableList: object = {}; // 当前分类下的列表页
+  tableList: any = {}; // 当前分类下的列表页
   parseAllCategory: boolean;
   categoryIndex: number;
   parseListUrl: string;
@@ -112,9 +117,11 @@ export default class ParseTableList extends BaseSpider {
     );
   }
   /**
+   *
    * 请求详情页面
-   * async 配合 await 会将同步变成异步过程
-   * @param {Array} detailLinks 详情页面链接
+   * @param {string[]} detailLinks
+   * @param {boolean} isRepeat
+   * @memberof ParseTableList
    */
   async getDetailPage(detailLinks: string[], isRepeat: boolean) {
     console.log("爬取种子中...");
@@ -151,7 +158,7 @@ export default class ParseTableList extends BaseSpider {
       return this.categoryList[currentCategory].endPage;
     } else {
       let childCategory = this.categoryList[currentCategory].childCategory;
-      let item = childCategory.find(item => item.link === this.parseListUrl);
+      let item= childCategory.find((v:CategoryItem):boolean=> v.link === this.parseListUrl);
       return Math.min(item.endPage, COMMON_CONFIG.connectTasks);
     }
   }
@@ -165,7 +172,7 @@ export default class ParseTableList extends BaseSpider {
     if (!this.isParentCategory()) {
       let childCategory = this.categoryList[currentCategory].childCategory;
       let item =
-        childCategory.find(item => item.link === this.parseListUrl) || {};
+        childCategory.find((v:CategoryItem):boolean => v.link === this.parseListUrl) || {};
       temp = "_" + item.title;
     }
     return (
@@ -179,7 +186,7 @@ export default class ParseTableList extends BaseSpider {
    * 结束详情页递归
    * @param {Boolean} isRepeat 是否重复
    */
-  endDetailRecursion(isRepeat) {
+  endDetailRecursion(isRepeat: boolean) {
     this.currentPage += COMMON_CONFIG.connectTasks;
     if (isRepeat) {
       this.currentPage = COMMON_CONFIG.connectTasks + this.getTotalCount();
@@ -228,11 +235,11 @@ export default class ParseTableList extends BaseSpider {
    * 解析列表页面
    * @param {Object} $   cheerio 对象
    */
-  parseHtml($) {
+  parseHtml($: any) {
     let trDoms = $("#ajaxtable tr");
     let detailLinks: string[] = [];
     let repeatCount: number = 0;
-    let tableList = this.tableList;
+    let tableList:any = this.tableList;
     let category: string = this.parseListUrl;
     let isParentCategory = this.isParentCategory();
     let currentCategory = this.getCurrentCategory();
@@ -266,7 +273,7 @@ export default class ParseTableList extends BaseSpider {
    * @param {Object} $ cheerio 对象
    * @param {String} seed  详情页链接
    */
-  async parseDetailHtml($, seed: string) {
+  async parseDetailHtml($: any, seed: string) {
     if (!$) {
       return;
     }

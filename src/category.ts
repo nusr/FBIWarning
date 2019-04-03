@@ -9,15 +9,11 @@
 import async from "async";
 import path from "path";
 import readline from "readline";
-import SOCKS_CONFIG from "../socks.json";
+import SOCKS_CONFIG from "./socks";
 import COMMON_CONFIG from "./config";
-import { log, BaseSpider } from "./base";
+import { log, BaseSpider ,CategoryItem} from "./base";
 import ParseTableList from "./list";
-interface CategoryItem {
-  link: string;
-  title: string;
-  endPage: number;
-}
+
 /**
  * 解析分类
  */
@@ -60,9 +56,9 @@ export default class ParseCategory extends BaseSpider {
    * 解析分类页面
    * @param {Object} $ cheerio 对象
    */
-  parseHtml($) {
+  parseHtml($:any) {
     let categoryDom = $("#cate_3 tr");
-    let categoryList: object = this.categoryList;
+    let categoryList: any = this.categoryList;
     categoryDom.each(function() {
       let titleDom = $(this)
         .find("h3")
@@ -122,7 +118,7 @@ export default class ParseCategory extends BaseSpider {
   /**
    * 获取总页数
    */
-  getEndPage($) {
+  getEndPage($:any) {
     let trsLen: number = 0;
     try {
       let trs = $("#ajaxtable tr");
@@ -132,7 +128,7 @@ export default class ParseCategory extends BaseSpider {
         .text()
         .match(/[0-9/]/gi);
       let endPage: string[] = [];
-      let index = number.findIndex(item => item === "/");
+      let index = number.findIndex((v:string):boolean => v === "/");
       for (++index; index < number.length; index++) {
         endPage.push(number[index]);
       }
@@ -152,13 +148,13 @@ export default class ParseCategory extends BaseSpider {
    * @param {Object} $ cheerio
    * @param {String} category  所属分类
    */
-  parseChildCategory($, category: string) {
+  parseChildCategory($:any, category: string) {
     if (!$) {
       return false;
     }
     let childDom = $("#ajaxtable th").find("a");
     let childCategory: Array<CategoryItem> = [];
-    let categoryList: object = this.categoryList;
+    let categoryList: any = this.categoryList;
     childDom.each(function() {
       let link = $(this).attr("href");
       let text = $(this).text();
@@ -216,14 +212,14 @@ export default class ParseCategory extends BaseSpider {
    * @param {Number} parentIndex 父分类的索引
    * @param {Object} parentCategory 父分类
    */
-  selectChildCategory(parentIndex: number, parentCategory) {
+  selectChildCategory(parentIndex: number, parentCategory:any) {
     const instance = readline.createInterface({
       input: process.stdin,
       output: process.stdout
     });
     let categoryList = this.categoryList;
     let childCategory = parentCategory.childCategory;
-    let text = childCategory.map((item, index) => {
+    let text = childCategory.map((item:CategoryItem, index:number):string => {
       return index + 1 + ". >>> " + item.title;
     });
     text.push(

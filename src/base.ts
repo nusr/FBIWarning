@@ -12,13 +12,25 @@ import cheerio from "cheerio";
 // 中文编码
 import iconv from "iconv-lite";
 // 代理
-import Agent from "socks5-http-client";
+import { Agent } from "socks5-http-client";
 
 import querystring from "querystring";
 import path from "path";
 import fs from "fs";
-import SOCKS_CONFIG from "../socks.json";
+import SOCKS_CONFIG from "./socks";
 import COMMON_CONFIG from "./config";
+export interface CategoryItem {
+  link: string;
+  title: string;
+  endPage: number;
+}
+interface RequestOptions{
+  url:string;
+  headers:object;
+  agentClass?:any;
+  agentOptions?:object;
+  formData?:object;
+}
 export function log(info: string) {
   console.log(info);
 }
@@ -59,7 +71,7 @@ export class BaseSpider {
    * @param {Any} value
    */
   isEmpty(value: any): boolean {
-    return value == null || !(Object.keys(value) || value).length;
+    return value === null || !(Object.keys(value) || value).length;
   }
   /**
    * 更新 json 文件
@@ -86,7 +98,7 @@ export class BaseSpider {
    */
   readJsonFile(filePath: string) {
     try {
-      let data = fs.readFileSync(filePath);
+      let data:any = fs.readFileSync(filePath);
       data = data ? JSON.parse(data) : null;
       return data;
     } catch (error) {
@@ -115,7 +127,7 @@ export class BaseSpider {
     if (!url || url.startsWith("https")) {
       return null;
     }
-    let options = {
+    let options:RequestOptions = {
       url,
       headers: {
         "User-Agent": COMMON_CONFIG.userAgent

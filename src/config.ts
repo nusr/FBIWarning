@@ -5,8 +5,8 @@
  * @license MIT
  * @preserve
  */
-const JSON_DIRECTORY: string = "./json"
-const RESULT_DIRECTORY :string= "./result"
+const JSON_DIRECTORY: string = "./json";
+const RESULT_DIRECTORY: string = "./result";
 export default {
   result: RESULT_DIRECTORY, // 种子存放目录
   connectTasks: 8, // 最大并发量,最好不要更改，否则可能被封 IP
@@ -25,4 +25,4 @@ export default {
   //  请求头配置
   userAgent:
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
-}
+};

@@ -4,8 +4,9 @@
 
 ## 运行
 
-- `cnpm install` or `npm install` or `yarn` 
-- `npm start`
+- 装包:    `cnpm install` or `npm install` or `yarn` 
+- 编译 ts: `npm run build`
+- 运行:    `npm run start`
 
 ## 科学上网
 
@@ -18,17 +19,25 @@
 - [lantern](https://github.com/getlantern/lantern)
 - ShadowsocksX-NG
 
-`./socks.json` 文件中配置代理，代理配置如下：
+`./src/socks.ts` 文件中配置代理，代理配置如下：
 
-```json
-{
-  "port": 13838,
-  "host": "127.0.0.1"
-}
+```ts
+export default {
+  port: 13838, // port
+  host: "127.0.0.1" // host
+};
 ```
 
 ![lantern](./images/lantern.png)
 
+## 目录结构
 
+```
+.
+├── dist // js 源码
+├── json // json 存放爬取链接，下次加快爬取
+├── result // 种子目录
+└── src // ts 源码
+```
 
 
