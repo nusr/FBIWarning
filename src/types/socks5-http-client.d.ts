@@ -55,140 +55,117 @@ export namespace Agent {
         function setMaxListeners(n: any): any;
 
         namespace addListener {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace addRequest {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace createConnection {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace createSocket {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace destroy {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace emit {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace eventNames {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace getMaxListeners {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace getName {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace keepSocketAlive {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace listenerCount {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace listeners {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace off {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace on {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace once {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace prependListener {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace prependOnceListener {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace rawListeners {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace removeAllListeners {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace removeListener {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace removeSocket {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace reuseSocket {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
         namespace setMaxListeners {
-            const prototype: {
-            };
+            const prototype: {};
 
         }
 
@@ -197,14 +174,12 @@ export namespace Agent {
 }
 
 export namespace get {
-    const prototype: {
-    };
+    const prototype: {};
 
 }
 
 export namespace request {
-    const prototype: {
-    };
+    const prototype: {};
 
 }
 

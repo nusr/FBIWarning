@@ -35,7 +35,7 @@ export default {
 ```
 .
 ├── dist // js 源码
-├── json // json 存放爬取链接，下次加快爬取
+├── json // json 文件存放爬取链接，下次加快爬取
 ├── result // 种子目录
 └── src // ts 源码
 ```
