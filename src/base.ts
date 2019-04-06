@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
  * @overview
  * @author Steve Xu <stevexugc@gmail.com>
@@ -70,9 +71,9 @@ export class BaseSpider {
         let errorText: string = `
         请输入正确的代理配置：\n
         示例如下：
-        proxy_url=http://127.0.0.1:1086 node ./dist/index.js
-        proxy_url=https://127.0.0.1:1086 node ./dist/index.js
-        proxy_url=socks://127.0.0.1:1086 node ./dist/index.js`;
+        node dist/index.js http://127.0.0.1:1086
+        node dist/index.js socks://127.0.0.1:1086
+        node dist/index.js https://127.0.0.1:1086`;
         if (!proxy) {
             console.log('请配置代理！');
             console.log(errorText);

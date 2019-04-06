@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -61,9 +62,9 @@ class BaseSpider {
         let errorText = `
         请输入正确的代理配置：\n
         示例如下：
-        proxy_url=http://127.0.0.1:1086 node ./dist/index.js
-        proxy_url=https://127.0.0.1:1086 node ./dist/index.js
-        proxy_url=socks://127.0.0.1:1086 node ./dist/index.js`;
+        node dist/index.js http://127.0.0.1:1086
+        node dist/index.js socks://127.0.0.1:1086
+        node dist/index.js https://127.0.0.1:1086`;
         if (!proxy) {
             console.log('请配置代理！');
             console.log(errorText);

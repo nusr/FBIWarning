@@ -1,5 +1,5 @@
 {
-  "name": "FBIWarning",
+  "name": "fbi-warning",
   "version": "1.0.0",
   "description": "Node.js 种子神器",
   "main": "dist/index.js",
@@ -35,5 +35,8 @@
     "FBI Warning",
     "Spider"
   ],
+  "bin":{
+    "fbi-warning":"dist/index.js"
+  },
   "license": "MIT"
 }
