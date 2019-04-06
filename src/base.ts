@@ -40,7 +40,10 @@ interface RequestOptions {
 }
 
 export function log(info: string) {
-    console.log(info);
+    if (process.env.debug_mode) {
+        console.log(info);
+    }
+
 }
 
 
@@ -55,13 +58,15 @@ export class BaseSpider {
     isSocksProxy: boolean = false;
 
     constructor() {
-        this.proxyUrl = process.env.proxy_url;
+        let [, , proxy_url] = process.argv;
+        this.proxyUrl = proxy_url;
         this.startProxy(this.proxyUrl);
         this.generateDirectory(COMMON_CONFIG.tableList);
         this.generateDirectory(COMMON_CONFIG.result);
     }
 
     startProxy(proxy: string) {
+        log(proxy);
         let errorText: string = `
         请输入正确的代理配置：\n
         示例如下：
@@ -69,8 +74,8 @@ export class BaseSpider {
         proxy_url=https://127.0.0.1:1086 node ./dist/index.js
         proxy_url=socks://127.0.0.1:1086 node ./dist/index.js`;
         if (!proxy) {
-            log('请配置代理！');
-            log(errorText);
+            console.log('请配置代理！');
+            console.log(errorText);
             process.exit();
             return;
         }
@@ -87,8 +92,8 @@ export class BaseSpider {
                 });
             }
         } else {
-            log('代理配置错误！');
-            log(errorText);
+            console.log('代理配置错误！');
+            console.log(errorText);
             process.exit();
         }
     }
@@ -154,7 +159,7 @@ export class BaseSpider {
             data = data ? JSON.parse(data) : null;
             return data;
         } catch (error) {
-            // log(error);
+            log(error);
             return null;
         }
     }
@@ -169,7 +174,7 @@ export class BaseSpider {
                 fs.mkdirSync(dirPath);
             }
         } catch (err) {
-            // console.log(err);
+            console.log(err);
         }
     }
 
@@ -317,7 +322,7 @@ export class BaseSpider {
                         let $ = cheerio.load(content);
                         resolve($);
                     } catch (error) {
-                        // log(error)
+                        log(error);
                         resolve(null);
                     }
                 });

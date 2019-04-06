@@ -36,7 +36,9 @@ const request = request_1.default.defaults({
     headers: { "User-Agent": config_1.default.userAgent },
 });
 function log(info) {
-    console.log(info);
+    if (process.env.debug_mode) {
+        console.log(info);
+    }
 }
 exports.log = log;
 /**
@@ -48,12 +50,14 @@ class BaseSpider {
         this.startTime = 0;
         this.categoryList = {};
         this.isSocksProxy = false;
-        this.proxyUrl = process.env.proxy_url;
+        let [, , proxy_url] = process.argv;
+        this.proxyUrl = proxy_url;
         this.startProxy(this.proxyUrl);
         this.generateDirectory(config_1.default.tableList);
         this.generateDirectory(config_1.default.result);
     }
     startProxy(proxy) {
+        log(proxy);
         let errorText = `
         请输入正确的代理配置：\n
         示例如下：
@@ -61,8 +65,8 @@ class BaseSpider {
         proxy_url=https://127.0.0.1:1086 node ./dist/index.js
         proxy_url=socks://127.0.0.1:1086 node ./dist/index.js`;
         if (!proxy) {
-            log('请配置代理！');
-            log(errorText);
+            console.log('请配置代理！');
+            console.log(errorText);
             process.exit();
             return;
         }
@@ -80,8 +84,8 @@ class BaseSpider {
             }
         }
         else {
-            log('代理配置错误！');
-            log(errorText);
+            console.log('代理配置错误！');
+            console.log(errorText);
             process.exit();
         }
     }
@@ -143,7 +147,7 @@ class BaseSpider {
             return data;
         }
         catch (error) {
-            // log(error);
+            log(error);
             return null;
         }
     }
@@ -158,7 +162,7 @@ class BaseSpider {
             }
         }
         catch (err) {
-            // console.log(err);
+            console.log(err);
         }
     }
     /**
@@ -300,7 +304,7 @@ class BaseSpider {
                         resolve($);
                     }
                     catch (error) {
-                        // log(error)
+                        log(error);
                         resolve(null);
                     }
                 });

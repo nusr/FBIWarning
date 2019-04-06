@@ -16,5 +16,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * 2. 爬取一部分列表页面，就去爬取详情页面 图算法深度优先
  * 因为是国外网站，网络可能随时断开，所以采用第二种策略比较好
  */
+console.log('欢迎使用 Node.js 种子神器！');
 const category_1 = __importDefault(require("./category"));
 new category_1.default();

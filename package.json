@@ -1,29 +1,18 @@
 {
   "name": "FBIWarning",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Node.js 种子神器",
-  "main": "./dist/index.js",
+  "main": "dist/index.js",
   "homepage": "https://github.com/nusr/FBIWarning",
-  "author": {
-    "name": "Steve Xu",
-    "email": "stevexugc@gmail.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nusr/FBIWarning.git"
-  },
+  "author": "Steve Xu stevexugc@gmail.com",
+  "repository": "https://github.com/nusr/FBIWarning.git",
   "scripts": {
+    "dev": "debug_mode=1 node ./dist/index.js http://127.0.0.1:1087",
     "build": "npm run build-ts && npm run lint",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "lint": "tslint -c tslint.json -p tsconfig.json"
   },
-  "keywords": [
-    "downloader",
-    "Node.js",
-    "FBI Warning",
-    "Spider"
-  ],
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "global-tunnel-ng": "^2.7.1",
@@ -32,7 +21,6 @@
     "socks5-http-client": "^1.0.4",
     "socks5-https-client": "^1.2.1"
   },
-  "license": "MIT",
   "devDependencies": {
     "@types/cheerio": "^0.22.11",
     "@types/global-tunnel-ng": "^2.1.0",
@@ -40,5 +28,12 @@
     "@types/request": "^2.48.1",
     "tslint": "^5.15.0",
     "typescript": "^3.4.1"
-  }
+  },
+  "keywords": [
+    "downloader",
+    "Node.js",
+    "FBI Warning",
+    "Spider"
+  ],
+  "license": "MIT"
 }

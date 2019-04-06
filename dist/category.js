@@ -93,7 +93,6 @@ class ParseCategory extends base_1.BaseSpider {
                 }
             });
             this.requestSuccess();
-            base_1.log('async before');
             let links = Object.keys(categoryList);
             if (this.isEmpty(links)) {
                 this.requestFailure();
@@ -103,7 +102,6 @@ class ParseCategory extends base_1.BaseSpider {
             for (let item of links) {
                 let result = yield this.requestPage(config_1.default.baseUrl + item);
                 this.parseChildCategory(result, item);
-                base_1.log('async result');
             }
             this.updateCategoryList();
             this.selectCategory();
