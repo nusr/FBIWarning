@@ -4,31 +4,19 @@
 
 ## 运行
 
-- 装包:    `cnpm install` or `npm install` or `yarn` 
-- 编译 ts: `npm run build`
-- 运行:    `npm run start`
+- 装包:  `cnpm install` or `npm install` or `yarn` 
+- 运行: `proxy_url=socks://127.0.0.1:1086 node ./dist/index.js`
 
 ## 科学上网
 
 **翻墙才可以爬取，否则爬取失败！**
 
-仅支持 **socks** 代理，控制台输出 **代理测试通过!!!** 表示代理可用。
+支持的代理形式
 
-支持的代理软件
+1. http  `http://127.0.0.1:1086`
+2. https `https://127.0.0.1:1086`
+3. socks `socks://127.0.0.1:1086`
 
-- [lantern](https://github.com/getlantern/lantern)
-- ShadowsocksX-NG
-
-`./src/socks.ts` 文件中配置代理，代理配置如下：
-
-```ts
-export default {
-  port: 13838, // port
-  host: "127.0.0.1" // host
-};
-```
-
-![lantern](./images/lantern.png)
 
 ## 目录结构
 

@@ -91,7 +91,7 @@ export default class ParseTableList extends BaseSpider {
             }
             requestUrls.push(requestUrl);
         }
-
+// async 并发
         let detailLinks: string[] = [];
         let repeatCount: number = 0;
         for(let url of requestUrls){
@@ -297,7 +297,7 @@ export default class ParseTableList extends BaseSpider {
             let extName = path.extname(src);
             const extList = [".jpg", ".png", ".jpeg", ".gif", ".bmp"];
             // 去掉无效的图片下载链接
-            if (src && src.startsWith("http") && extList.includes(extName)) {
+            if (src && extList.includes(extName)) {
                 images.push(src);
             }
         });

@@ -2,7 +2,7 @@
   "name": "FBIWarning",
   "version": "0.1.0",
   "description": "Node.js 种子神器",
-  "main": "./dist/src/index.js",
+  "main": "./dist/index.js",
   "homepage": "https://github.com/nusr/FBIWarning",
   "author": {
     "name": "Steve Xu",
@@ -13,7 +13,6 @@
     "url": "https://github.com/nusr/FBIWarning.git"
   },
   "scripts": {
-    "start": "node ./dist/index.js",
     "build": "npm run build-ts && npm run lint",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
@@ -27,6 +26,7 @@
   ],
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "global-tunnel-ng": "^2.7.1",
     "iconv-lite": "^0.4.24",
     "request": "^2.88.0",
     "socks5-http-client": "^1.0.4",
@@ -35,6 +35,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/cheerio": "^0.22.11",
+    "@types/global-tunnel-ng": "^2.1.0",
     "@types/node": "^11.13.0",
     "@types/request": "^2.48.1",
     "tslint": "^5.15.0",

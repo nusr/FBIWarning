@@ -7,10 +7,10 @@
  */
 import path from "path";
 import readline from "readline";
-import SOCKS_CONFIG from "./socks";
 import COMMON_CONFIG from "./config";
 import {log, BaseSpider, CategoryItem} from "./base";
 import ParseTableList from "./list";
+
 
 /**
  * 解析分类
@@ -37,14 +37,9 @@ export default class ParseCategory extends BaseSpider {
      * 请求测试失败！
      */
     requestFailure() {
-        let text = `
-    ------------------------------------------------------------\n
-    ------------代理${SOCKS_CONFIG.host} : ${
-            SOCKS_CONFIG.port
-            }不可用!!!-----------------\n
-    ------------代理配置错误，一定要配置代理!!!-----------------\n
-    -----------------------------------------------------------`;
+        let text = `代理${this.proxyUrl}不可用!!!`;
         console.log(text);
+        process.exit();
     }
 
     /**
@@ -58,7 +53,7 @@ export default class ParseCategory extends BaseSpider {
      * 解析分类页面
      * @param {Object} $ cheerio 对象
      */
-  async  parseHtml($: any) {
+    async parseHtml($: any) {
         let categoryDom = $("#cate_3 tr");
         let categoryList: any = this.categoryList;
         categoryDom.each(function () {
@@ -88,17 +83,15 @@ export default class ParseCategory extends BaseSpider {
         });
 
         this.requestSuccess();
-        log('async before');
         let links: string[] = Object.keys(categoryList);
         if (this.isEmpty(links)) {
             this.requestFailure();
             return;
-{}        }
-        log('asyns after');
-        for(let item of links){
+        }
+        // async 并发
+        for (let item of links) {
             let result = await this.requestPage(COMMON_CONFIG.baseUrl + item);
             this.parseChildCategory(result, item);
-            log('async result');
         }
         this.updateCategoryList();
         this.selectCategory();
