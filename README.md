@@ -1,6 +1,6 @@
-# node-sex-torrent
+# fbi-warning
 
-受到 [hardseed](https://github.com/yangyangwithgnu/hardseed)(C++) 的启发，开发的 **Node.js** 种子神器。
+受到 [hardseed](https://github.com/yangyangwithgnu/hardseed)(C++) 启发的 **Node.js** 种子神器。
 
 ## 运行
 
