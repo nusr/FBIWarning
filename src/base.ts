@@ -12,11 +12,14 @@ import baseRequest from "request";
 import cheerio from "cheerio";
 // 中文编码
 import iconvLite from "iconv-lite";
-// 代理
-import * as httpAgent from "socks5-http-client";
+// http https 代理
 import globalTunnel from 'global-tunnel-ng';
-
+// socks 代理 http
+const httpAgent = require('socks5-http-client/lib/Agent');
+// socks 代理 https
 const httpsAgent = require('socks5-https-client/lib/Agent');
+
+
 import urlUtil from 'url';
 import querystring from "querystring";
 import path from "path";
@@ -81,10 +84,11 @@ export class BaseSpider {
             return;
         }
         let proxyConfig: any = urlUtil.parse(proxy);
-        if (COMMON_CONFIG.proxy.includes(proxyConfig.protocol)) {
-            if (proxyConfig.protocol !== COMMON_CONFIG.proxy[0]) {
-                this.isSocksProxy = false;
-                const {port, hostname, protocol} = proxyConfig;
+        const {port, hostname, protocol} = proxyConfig;
+        if (COMMON_CONFIG.proxy.includes(protocol)) {
+            if (proxyConfig.protocol === COMMON_CONFIG.proxy[0]) {
+                this.isSocksProxy = true;
+            } else {
                 globalTunnel.initialize({
                     connect: 'both',
                     host: hostname,
@@ -193,7 +197,7 @@ export class BaseSpider {
         };
         if (useProxy && this.isSocksProxy) {
             let proxyConfig = urlUtil.parse(this.proxyUrl);
-            options.agentClass = url.startsWith("https") ? httpsAgent : httpAgent.Agent;
+            options.agentClass = url.startsWith("https") ? httpsAgent : httpAgent;
             options.agentOptions = {
                 socksPort: proxyConfig.port,
                 socksHost: proxyConfig.hostname
