@@ -10,7 +10,7 @@ import readline from "readline";
 import COMMON_CONFIG from "./config";
 import {log, BaseSpider, CategoryItem} from "./base";
 import ParseTableList from "./list";
-
+import PromiseTool from 'bluebird';
 
 /**
  * 解析分类
@@ -25,9 +25,9 @@ export default class ParseCategory extends BaseSpider {
      * 入口
      */
     async recursionExecutive() {
-        let $ = await this.requestPage(COMMON_CONFIG.baseUrl);
-        if ($) {
-            this.parseHtml($);
+        let temp = await this.requestPage(COMMON_CONFIG.baseUrl);
+        if (temp) {
+            this.parseHtml(temp);
         } else {
             this.requestFailure();
         }
@@ -88,13 +88,18 @@ export default class ParseCategory extends BaseSpider {
             this.requestFailure();
             return;
         }
-        // async 并发
-        for (let item of links) {
-            let result = await this.requestPage(COMMON_CONFIG.baseUrl + item);
-            this.parseChildCategory(result, item);
-        }
-        this.updateCategoryList();
-        this.selectCategory();
+        PromiseTool.map(links, async (url) => {
+            return await this.requestPage(COMMON_CONFIG.baseUrl + url);
+        }, {
+            concurrency: COMMON_CONFIG.connectTasks
+        }).then((results: any) => {
+                for (let i: number = 0; i < links.length; i++) {
+                    this.parseChildCategory(results[i], links[i]);
+                }
+                this.updateCategoryList();
+                this.selectCategory();
+            }
+        );
 
     }
 
@@ -145,7 +150,7 @@ export default class ParseCategory extends BaseSpider {
         }
         let childDom = $("#ajaxtable th").find("a");
         let childCategory: Array<CategoryItem> = [];
-        let categoryList: any = this.categoryList;
+        let categoryList: any = this.categoryList || {};
         childDom.each(function () {
             let link = $(this).attr("href");
             let text = $(this).text();
@@ -159,7 +164,7 @@ export default class ParseCategory extends BaseSpider {
             }
         });
         let endPage = Math.max(COMMON_CONFIG.connectTasks, ~~this.getEndPage($));
-        categoryList[category] = Object.assign(categoryList[category], {
+        categoryList[category] = Object.assign({}, categoryList[category], {
             endPage,
             childCategory
         });
@@ -175,11 +180,14 @@ export default class ParseCategory extends BaseSpider {
         });
         let categoryList = this.categoryList;
         let links = Object.values(categoryList);
-        let text: string[] = links.map((item, index) => {
-            return index + 1 + ". >>> " + item.title;
+        let text: string[] = [];
+        links.forEach((item, index) => {
+            if (item.title) {
+                text.push(index + 1 + ". >>> " + item.title);
+            }
         });
 
-        text.push(`请输入 1~${links.length},回车或者输入非法值解析所有分类?: `);
+        text.push(`请输入 1~${text.length},回车或者输入非法值解析所有分类?: `);
         let realText: string = text.join("\n");
         instance.question(realText, answer => {
             let value = parseInt(answer);
@@ -225,8 +233,8 @@ export default class ParseCategory extends BaseSpider {
             instance.close();
             if (value <= childCategory.length && value >= 1) {
                 let link = childCategory[index].link;
-                let $ = await this.requestPage(COMMON_CONFIG.baseUrl + link);
-                let endPage = ~~this.getEndPage($);
+                let result = await this.requestPage(COMMON_CONFIG.baseUrl + link);
+                let endPage = ~~this.getEndPage(result);
                 if (endPage < 1) {
                     console.log("该子分类无数据，请选择其他子分类\n");
                     this.selectChildCategory(parentIndex, parentCategory);

@@ -9,6 +9,7 @@
 import path from "path";
 import COMMON_CONFIG from "./config";
 import {log, BaseSpider, CategoryItem} from "./base";
+import PromiseTool from 'bluebird';
 
 interface TableItem {
     category: string; // 分类
@@ -92,20 +93,28 @@ export default class ParseTableList extends BaseSpider {
             requestUrls.push(requestUrl);
         }
 // async 并发
-        let detailLinks: string[] = [];
-        let repeatCount: number = 0;
-        for(let url of requestUrls){
-            let result = await this.requestPage(url);
-            let {links, repeat} = this.parseHtml(result);
-            repeatCount = repeatCount + ~~repeat;
-            detailLinks = [...detailLinks, ...links];
 
-        }
-        detailLinks = this.filterRepeat(detailLinks);
-        let isRepeat =
-            repeatCount >
-            (COMMON_CONFIG.connectTasks * COMMON_CONFIG.pageSize) / 2;
-        this.getDetailPage(detailLinks, isRepeat);
+        PromiseTool.map(requestUrls, async (url: string) => {
+            return await this.requestPage(url);
+        }, {
+            concurrency: COMMON_CONFIG.connectTasks
+        }).then((results: any) => {
+                let detailLinks: string[] = [];
+                let repeatCount: number = 0;
+                for (let result of results) {
+                    let {links, repeat} = this.parseHtml(result);
+                    repeatCount = repeatCount + ~~repeat;
+                    detailLinks = [...detailLinks, ...links];
+
+                }
+                detailLinks = this.filterRepeat(detailLinks);
+                let isRepeat =
+                    repeatCount >
+                    (COMMON_CONFIG.connectTasks * COMMON_CONFIG.pageSize) / 2;
+                this.getDetailPage(detailLinks, isRepeat);
+            }
+        );
+
     }
 
     /**
@@ -131,8 +140,8 @@ export default class ParseTableList extends BaseSpider {
                     tableList[link].images
                 );
             } else {
-                let $ = await this.requestPage(COMMON_CONFIG.baseUrl + link);
-                await this.parseDetailHtml($, link);
+                let result = await this.requestPage(COMMON_CONFIG.baseUrl + link);
+                await this.parseDetailHtml(result, link);
             }
         }
         this.endDetailRecursion(isRepeat);

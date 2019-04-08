@@ -15,7 +15,8 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
+    "bluebird": "^3.5.4",
+    "cheerio": "^1.0.0-rc.3",
     "global-tunnel-ng": "^2.7.1",
     "iconv-lite": "^0.4.24",
     "request": "^2.88.0",
@@ -23,6 +24,7 @@
     "socks5-https-client": "^1.2.1"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.26",
     "@types/cheerio": "^0.22.11",
     "@types/global-tunnel-ng": "^2.1.0",
     "@types/node": "^11.13.0",

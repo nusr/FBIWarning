@@ -114,7 +114,7 @@ export class BaseSpider {
      * 计时结束
      */
     endTimeCount() {
-        let seconds = (+new Date() - this.startTime) / 1000;
+        let seconds: number = (+new Date() - this.startTime) / 1000;
         console.log("爬取总共耗时： " + seconds + " 秒");
     }
 
@@ -308,7 +308,7 @@ export class BaseSpider {
      * 请求页面
      * @param {String} requestUrl 请求页面
      */
-    requestPage(requestUrl: string) {
+    requestPage(requestUrl: string): any {
         try {
             return new Promise(resolve => {
                 let options = this.getRequestOptions(requestUrl, true);
