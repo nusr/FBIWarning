@@ -50,8 +50,12 @@ class ParseCategory extends base_1.BaseSpider {
      * 请求测试失败！
      */
     requestFailure() {
-        let text = `代理${this.proxyUrl}不可用!!!`;
-        console.log(text);
+        if (!this.proxyUrl) {
+            console.log('当前网络不能访问种子网站，请配置代理！' + config_1.default.errorText);
+        }
+        else {
+            console.log(`代理${this.proxyUrl}不可用!!!`);
+        }
         process.exit();
     }
     /**

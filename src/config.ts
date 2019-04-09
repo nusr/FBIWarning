@@ -22,8 +22,14 @@ export default {
         "http://www6.mimima.com",
         "http://mimima.com"
     ],
-    proxy:['socks:','http:','https:'],
+    proxy: ['socks:', 'http:', 'https:'],
     //  请求头配置
     userAgent:
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36",
+    errorText: `
+        \n请输入正确的代理配置：
+        示例如下：
+        node dist/index.js http://127.0.0.1:1086
+        node dist/index.js socks://127.0.0.1:1086
+        node dist/index.js https://127.0.0.1:1086`
 };

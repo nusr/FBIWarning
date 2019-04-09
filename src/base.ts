@@ -70,17 +70,7 @@ export class BaseSpider {
     }
 
     startProxy(proxy: string) {
-        log(proxy);
-        let errorText: string = `
-        请输入正确的代理配置：\n
-        示例如下：
-        node dist/index.js http://127.0.0.1:1086
-        node dist/index.js socks://127.0.0.1:1086
-        node dist/index.js https://127.0.0.1:1086`;
         if (!proxy) {
-            console.log('请配置代理！');
-            console.log(errorText);
-            process.exit();
             return;
         }
         let proxyConfig: any = urlUtil.parse(proxy);
@@ -97,8 +87,7 @@ export class BaseSpider {
                 });
             }
         } else {
-            console.log('代理配置错误！');
-            console.log(errorText);
+            console.log(COMMON_CONFIG.errorText);
             process.exit();
         }
     }

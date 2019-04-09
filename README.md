@@ -17,6 +17,7 @@
 1. http  `node dist/index.js http://127.0.0.1:1086`
 2. https `node dist/index.js https://127.0.0.1:1086`
 3. socks `node dist/index.js socks://127.0.0.1:1086`
+4. 代理为空 `node dist/index.js`
 
 
 ## 目录结构
