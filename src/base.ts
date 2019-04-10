@@ -69,6 +69,10 @@ export class BaseSpider {
         this.generateDirectory(COMMON_CONFIG.result);
     }
 
+    /**
+     * 开启代理
+     * @param proxy
+     */
     startProxy(proxy: string) {
         if (!proxy) {
             return;

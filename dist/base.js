@@ -52,6 +52,10 @@ class BaseSpider {
         this.generateDirectory(config_1.default.tableList);
         this.generateDirectory(config_1.default.result);
     }
+    /**
+     * 开启代理
+     * @param proxy
+     */
     startProxy(proxy) {
         if (!proxy) {
             return;

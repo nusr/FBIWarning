@@ -92,8 +92,6 @@ export default class ParseTableList extends BaseSpider {
             }
             requestUrls.push(requestUrl);
         }
-// async 并发
-
         PromiseTool.map(requestUrls, async (url: string) => {
             return await this.requestPage(url);
         }, {

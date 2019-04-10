@@ -85,7 +85,6 @@ class ParseTableList extends base_1.BaseSpider {
                 }
                 requestUrls.push(requestUrl);
             }
-            // async 并发
             bluebird_1.default.map(requestUrls, (url) => __awaiter(this, void 0, void 0, function* () {
                 return yield this.requestPage(url);
             }), {

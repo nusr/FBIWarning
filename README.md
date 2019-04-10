@@ -1,24 +1,27 @@
 # fbi-warning
 
-受到 [hardseed](https://github.com/yangyangwithgnu/hardseed)(C++) 启发的 **Node.js** 种子神器。
+受到 [hardseed](https://github.com/yangyangwithgnu/hardseed) 启发，开发的 **Node.js** 种子神器。
+
 
 ## 运行
 
-- 装包:  `npm i` or `yarn` 
-- 运行: `node dist/index.js [proxy_url]`
+1. 装包:  `npm i` or `yarn` 
+1. 运行: `node dist/index.js [proxy_url]`
 
+## **[proxy_url]** 支持的代理形式
+
+1. http  `node dist/index.js http://127.0.0.1:1086`
+2. https `node dist/index.js https://127.0.0.1:1086`
+3. socks `node dist/index.js socks://127.0.0.1:1086`
+4. 可以直接访问种子网站，代理设置为空 `node dist/index.js`
 
 ## 科学上网
 
 **翻墙才可以爬取，否则爬取失败！**
 
-**[proxy_url]** 支持的代理形式
+控制台输出 **代理测试通过!!!** ，表示代理成功。
 
-1. http  `node dist/index.js http://127.0.0.1:1086`
-2. https `node dist/index.js https://127.0.0.1:1086`
-3. socks `node dist/index.js socks://127.0.0.1:1086`
-4. 代理为空 `node dist/index.js`
-
+[lantern](https://github.com/getlantern/lantern) 每月有 **500M** 免费代理流浪。
 
 ## 目录结构
 
@@ -30,4 +33,11 @@
 └── src // ts 源码
 ```
 
+## TODO
+
+多个代理同时爬取，不知道该怎么做。
+
+暂时的解决方法是开启多个命令行，使用不同的代理爬取种子。
+
+**小撸怡情，大撸伤身！**
 
