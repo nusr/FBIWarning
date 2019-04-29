@@ -21,7 +21,12 @@
 
 控制台输出 **代理测试通过!!!** ，表示代理成功。
 
-[lantern](https://github.com/getlantern/lantern) 每月有 **500M** 免费代理流浪。
+## 代理软件
+
+测试通过的代理软件，更多代理软件欢迎提 issue 或者 pr
+
+1. [lantern](https://github.com/getlantern/lantern) 
+1. [ShadowsocksX-NG](https://github.com/shadowsocks/ShadowsocksX-NG) 
 
 ## 目录结构
 
