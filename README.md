@@ -1,16 +1,17 @@
 # fbi-warning
 
-受到 [hardseed](https://github.com/yangyangwithgnu/hardseed) 启发，开发的 **Node.js** 种子神器。
+[![Build Status](https://travis-ci.org/nusr/FBIWarning.svg?branch=master)](https://travis-ci.org/nusr/FBIWarning)
 
+受到 [hardseed](https://github.com/yangyangwithgnu/hardseed) 启发，开发的 **Node.js** 种子神器。
 
 ## 运行
 
-1. 装包:  `npm i` or `yarn` 
+1. 装包: `npm i` or `yarn`
 1. 运行: `node dist/index.js [proxy_url]`
 
 ## **[proxy_url]** 支持的代理形式
 
-1. http  `node dist/index.js http://127.0.0.1:1086`
+1. http `node dist/index.js http://127.0.0.1:1086`
 2. https `node dist/index.js https://127.0.0.1:1086`
 3. socks `node dist/index.js socks://127.0.0.1:1086`
 4. 可以直接访问种子网站，代理设置为空 `node dist/index.js`
@@ -23,14 +24,14 @@
 
 ## 代理软件
 
-测试通过的代理软件，更多代理软件欢迎提 issue 或者 pr
+测试通过的代理软件，更多代理软件欢迎提 issue 或者 pull request
 
-1. [lantern](https://github.com/getlantern/lantern) 
-1. [ShadowsocksX-NG](https://github.com/shadowsocks/ShadowsocksX-NG) 
+1. [lantern](https://github.com/getlantern/lantern)
+1. [ShadowsocksX-NG](https://github.com/shadowsocks/ShadowsocksX-NG)
 
 ## 目录结构
 
-```
+```bash
 .
 ├── dist // js 源码
 ├── json // json 文件存放爬取链接，下次加快爬取
@@ -45,4 +46,3 @@
 暂时的解决方法是开启多个命令行，使用不同的代理爬取种子。
 
 **小撸怡情，大撸伤身！**
-
