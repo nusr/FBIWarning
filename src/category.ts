@@ -57,13 +57,10 @@ export default class ParseCategory extends BaseSpider {
      * @param {Object} $ cheerio 对象
      */
     async parseHtml($: any) {
-        let categoryDom = $("#cate_3 tr");
+        let categoryDom = $("#content tr");
         let categoryList: any = this.categoryList;
         categoryDom.each(function () {
-            let titleDom = $(this)
-                .find("h3")
-                .eq(0)
-                .find("a");
+            let titleDom = $(this).find("h3>a").eq(0)
             // path.basename 去掉链接中无用的字符
             let link = path.basename(titleDom.attr("href") || "");
             let title = titleDom.text() || "分类名为空";

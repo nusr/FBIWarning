@@ -11,7 +11,7 @@ const JSON_DIRECTORY = "./json";
 const RESULT_DIRECTORY = "./result";
 exports.default = {
     result: RESULT_DIRECTORY,
-    connectTasks: 8,
+    connectTasks: 4,
     baseUrl: "http://www.ac168.info/bt/",
     categoryConfig: JSON_DIRECTORY + "/categoryConfig.json",
     tableList: JSON_DIRECTORY,

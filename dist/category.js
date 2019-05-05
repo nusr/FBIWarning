@@ -70,13 +70,10 @@ class ParseCategory extends base_1.BaseSpider {
      */
     parseHtml($) {
         return __awaiter(this, void 0, void 0, function* () {
-            let categoryDom = $("#cate_3 tr");
+            let categoryDom = $("#content tr");
             let categoryList = this.categoryList;
             categoryDom.each(function () {
-                let titleDom = $(this)
-                    .find("h3")
-                    .eq(0)
-                    .find("a");
+                let titleDom = $(this).find("h3>a").eq(0);
                 // path.basename 去掉链接中无用的字符
                 let link = path_1.default.basename(titleDom.attr("href") || "");
                 let title = titleDom.text() || "分类名为空";

@@ -211,10 +211,6 @@ export class BaseSpider {
         images: string[] = []
     ) {
         try {
-            // 有种子文件才下载
-            if (this.isEmpty(torrents)) {
-                return false;
-            }
             for (let torrent of torrents) {
                 this.downloadTorrent(filePath, torrent);
             }
@@ -271,7 +267,8 @@ export class BaseSpider {
     downloadTorrent(filePath: string, downloadUrl: string) {
         // 防止一个请求出错，导致程序终止
         try {
-            // 解析出链接的 code 值
+       
+                // 解析出链接的 code 值
             let code = querystring.parse(downloadUrl.split("?").pop()).ref;
             // 种子网站国内可以访问，无须翻墙
             let options = this.getRequestOptions(COMMON_CONFIG.torrent, false);
@@ -291,6 +288,7 @@ export class BaseSpider {
                     return;
                 })
                 .pipe(fs.createWriteStream(filePath + "_" + code + ".torrent"));
+
         } catch (error) {
             log(error);
             // log("下载种子失败！")

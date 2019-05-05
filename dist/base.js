@@ -186,10 +186,6 @@ class BaseSpider {
      */
     downloadResult(filePath, torrents = [], images = []) {
         try {
-            // 有种子文件才下载
-            if (this.isEmpty(torrents)) {
-                return false;
-            }
             for (let torrent of torrents) {
                 this.downloadTorrent(filePath, torrent);
             }

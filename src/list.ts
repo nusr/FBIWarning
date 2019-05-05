@@ -253,9 +253,8 @@ export default class ParseTableList extends BaseSpider {
         trDoms.each(function () {
             // 详情页面链接
             let link = $(this)
-                .find("h3")
+                .find("h3>a")
                 .eq(0)
-                .find("a")
                 .attr("href");
             if (link && tableList[link]) {
                 repeatCount++;
@@ -325,6 +324,7 @@ export default class ParseTableList extends BaseSpider {
         let directory =
             this.getParentDirectory() + "/" + this.filterIllegalPath(title);
         await this.downloadResult(directory, torrents, images);
+        
     }
 
     /**

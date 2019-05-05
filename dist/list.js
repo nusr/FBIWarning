@@ -232,9 +232,8 @@ class ParseTableList extends base_1.BaseSpider {
         trDoms.each(function () {
             // 详情页面链接
             let link = $(this)
-                .find("h3")
+                .find("h3>a")
                 .eq(0)
-                .find("a")
                 .attr("href");
             if (link && tableList[link]) {
                 repeatCount++;
