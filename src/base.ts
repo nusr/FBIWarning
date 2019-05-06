@@ -44,7 +44,7 @@ interface RequestOptions {
 }
 
 export function log(info: string) {
-    if (process.env.debug_mode) {
+    if (process.env.DEBUG_MODE) {
         console.log(info);
     }
 
@@ -267,7 +267,6 @@ export class BaseSpider {
     downloadTorrent(filePath: string, downloadUrl: string) {
         // 防止一个请求出错，导致程序终止
         try {
-       
                 // 解析出链接的 code 值
             let code = querystring.parse(downloadUrl.split("?").pop()).ref;
             // 种子网站国内可以访问，无须翻墙

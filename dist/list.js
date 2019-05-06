@@ -22,13 +22,14 @@ const path_1 = __importDefault(require("path"));
 const config_1 = __importDefault(require("./config"));
 const base_1 = require("./base");
 const bluebird_1 = __importDefault(require("bluebird"));
+const Sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 /**
  * 解析列表页,获取种子链接，下载种子文件
  */
 class ParseTableList extends base_1.BaseSpider {
     constructor(categoryIndex = 0, parseAllCategory = false, parseListUrl = "", categoryList = {}) {
         super();
-        this.currentPage = 1; //当前页数
+        this.currentPage = ~~process.env.START_PAGE || 1; //当前页数
         this.jsonPath = ""; // 列表页结果路径
         this.tableList = {}; // 当前分类下的列表页
         this.parseAllCategory = parseAllCategory; // 是否解析所有分类
@@ -127,6 +128,7 @@ class ParseTableList extends base_1.BaseSpider {
                     let result = yield this.requestPage(config_1.default.baseUrl + link);
                     yield this.parseDetailHtml(result, link);
                 }
+                yield Sleep(100);
             }
             this.endDetailRecursion(isRepeat);
         });

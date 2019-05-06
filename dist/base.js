@@ -32,7 +32,7 @@ const request = request_1.default.defaults({
     headers: { "User-Agent": config_1.default.userAgent },
 });
 function log(info) {
-    if (process.env.debug_mode) {
+    if (process.env.DEBUG_MODE) {
         console.log(info);
     }
 }

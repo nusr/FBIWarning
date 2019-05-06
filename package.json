@@ -7,7 +7,7 @@
   "author": "Steve Xu stevexugc@gmail.com",
   "repository": "https://github.com/nusr/FBIWarning.git",
   "scripts": {
-    "dev": "debug_mode=1 node ./dist/index.js socks://127.0.0.1:1086",
+    "start": "START_PAGE=40 DEBUG_MODE=1 node ./dist/index.js socks://127.0.0.1:1086",
     "build": "npm run build-ts && npm run lint",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",

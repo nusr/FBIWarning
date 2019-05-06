@@ -12,7 +12,7 @@ const RESULT_DIRECTORY = "./result";
 exports.default = {
     result: RESULT_DIRECTORY,
     connectTasks: 4,
-    baseUrl: "http://www.ac168.info/bt/",
+    baseUrl: "http://www.aisex.com/bt/",
     categoryConfig: JSON_DIRECTORY + "/categoryConfig.json",
     tableList: JSON_DIRECTORY,
     pageSize: 30,

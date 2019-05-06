@@ -17,11 +17,13 @@ interface TableItem {
     torrents: string[];
 }
 
+const Sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 /**
  * 解析列表页,获取种子链接，下载种子文件
  */
 export default class ParseTableList extends BaseSpider {
-    currentPage: number = 1; //当前页数
+    currentPage: number = ~~process.env.START_PAGE || 1; //当前页数
     jsonPath: string = ""; // 列表页结果路径
     tableList: any = {}; // 当前分类下的列表页
     parseAllCategory: boolean;
@@ -141,7 +143,9 @@ export default class ParseTableList extends BaseSpider {
                 let result = await this.requestPage(COMMON_CONFIG.baseUrl + link);
                 await this.parseDetailHtml(result, link);
             }
+            await Sleep(100);
         }
+
         this.endDetailRecursion(isRepeat);
     }
 
@@ -324,7 +328,7 @@ export default class ParseTableList extends BaseSpider {
         let directory =
             this.getParentDirectory() + "/" + this.filterIllegalPath(title);
         await this.downloadResult(directory, torrents, images);
-        
+
     }
 
     /**

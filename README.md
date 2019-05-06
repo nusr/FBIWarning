@@ -7,14 +7,16 @@
 ## 运行
 
 1. 装包: `npm i` or `yarn`
-1. 运行: `node dist/index.js [proxy_url]`
+1. 运行: `node dist/index.js proxy_url`
 
-## **[proxy_url]** 支持的代理形式
+## **proxy_url** 支持的代理形式
 
-1. http `node dist/index.js http://127.0.0.1:1086`
-2. https `node dist/index.js https://127.0.0.1:1086`
-3. socks `node dist/index.js socks://127.0.0.1:1086`
-4. 可以直接访问种子网站，代理设置为空 `node dist/index.js`
+| 支持协议       | 示例                                        |
+| -------------- | ------------------------------------------- |
+| http           | `node dist/index.js http://127.0.0.1:1086`  |
+| https          | `node dist/index.js https://127.0.0.1:1086` |
+| socks          | `node dist/index.js socks://127.0.0.1:1086` |
+| 可直接访问爱城 | `node dist/index.js`                        |
 
 ## 科学上网
 
@@ -22,12 +24,22 @@
 
 控制台输出 **代理测试通过!!!** ，表示代理成功。
 
+## 说明
+
+**最新帖子下的种子文件为空。**
+
+解决方法是指定下载的起始页面，例如指定起始下载页面为 20 :
+
+```bash
+START_PAGE=20 node ./dist/index.js socks://127.0.0.1:1086
+```
+
 ## 代理软件
 
 测试通过的代理软件，更多代理软件欢迎提 issue 或者 pull request
 
 1. [lantern](https://github.com/getlantern/lantern)
-1. [ShadowsocksX-NG](https://github.com/shadowsocks/ShadowsocksX-NG)
+2. [ShadowsocksX-NG](https://github.com/shadowsocks/ShadowsocksX-NG)
 
 ## 目录结构
 
