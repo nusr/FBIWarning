@@ -10,13 +10,13 @@ const RESULT_DIRECTORY: string = "./result";
 export default {
     result: RESULT_DIRECTORY, // 种子存放目录
     connectTasks: 4, // 最大并发量 8
-    baseUrl: "http://www.aisex.com/bt/", // http://www.aisex.com/bt/ | http://www.ac168.info/bt/
+    baseUrl: "https://as.dasemm.com/bt/", // http://www.aisex.com/bt/ | http://www.ac168.info/bt/
     categoryConfig: JSON_DIRECTORY + "/categoryConfig.json", // 分类列表
     tableList: JSON_DIRECTORY, // 缓存爬取的信息
     pageSize: 30, // 每页30条，这是网站规定的
-    torrent: "http://www.jandown.com/fetch.php", // 种子下载地址
+    torrent: "http://www.jandown.com/fetch.php", // 种子下载地址,待修改
     // 种子下载网站 两个网站其实是同一个
-    seedSite: [
+    seedSite: [//也要修改啊
         "http://www.jandown.com",
         "http://jandown.com",
         "http://www6.mimima.com",
