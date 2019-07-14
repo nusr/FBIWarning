@@ -11,26 +11,27 @@
     "build": "npm run build-ts && npm run lint",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
-    "lint": "tslint -c tslint.json -p tsconfig.json"
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "postinstall": "npm run build"
   },
   "dependencies": {
-    "bluebird": "^3.5.4",
+    "bluebird": "^3.5.5",
     "cheerio": "^1.0.0-rc.3",
     "global-tunnel-ng": "^2.7.1",
-    "iconv-lite": "^0.4.24",
+    "iconv-lite": "^0.5.0",
     "request": "^2.88.0",
     "socks5-http-client": "^1.0.4",
     "socks5-https-client": "^1.2.1"
   },
   "devDependencies": {
-    "@types/bluebird": "^3.5.26",
-    "@types/cheerio": "^0.22.11",
+    "@types/bluebird": "^3.5.27",
+    "@types/cheerio": "^0.22.12",
     "@types/global-tunnel-ng": "^2.1.0",
-    "@types/node": "^12.0.0",
-    "@types/request": "^2.48.1",
-    "husky": "^2.2.0",
-    "tslint": "^5.16.0",
-    "typescript": "^3.4.5"
+    "@types/node": "^12.6.2",
+    "@types/request": "^2.48.2",
+    "husky": "^3.0.0",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
   },
   "engines": {
     "node": ">=8.0.0"

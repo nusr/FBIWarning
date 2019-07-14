@@ -267,7 +267,7 @@ export class BaseSpider {
     downloadTorrent(filePath: string, downloadUrl: string) {
         // 防止一个请求出错，导致程序终止
         try {
-                // 解析出链接的 code 值
+            // 解析出链接的 code 值
             let code = querystring.parse(downloadUrl.split("?").pop()).ref;
             // 种子网站国内可以访问，无须翻墙
             let options = this.getRequestOptions(COMMON_CONFIG.torrent, false);
@@ -298,7 +298,7 @@ export class BaseSpider {
      * 请求页面
      * @param {String} requestUrl 请求页面
      */
-    requestPage(requestUrl: string): any {
+    requestPage(requestUrl: string): Promise<any> {
         try {
             return new Promise(resolve => {
                 let options = this.getRequestOptions(requestUrl, true);
